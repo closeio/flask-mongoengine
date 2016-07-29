@@ -4,19 +4,21 @@ from mongoengine.queryset.queryset import QuerySet
 orig_cursor_args = QuerySet._cursor_args.fget
 
 # In case we're not in a request context
-_read_preference = None
+class local_cache(object):
+    read_preference = None
+cache = local_cache()
 
 def _get_read_preference():
     if has_request_context():
         return getattr(g, 'read_preference', None)
     else:
-        return _read_preference
+        return cache.read_preference
 
 def _set_read_preference(val):
     if has_request_context():
         g.read_preference = val
     else:
-        _read_preference = val
+        cache.read_preference = val
 
 
 def _patched_cursor_args(self):
