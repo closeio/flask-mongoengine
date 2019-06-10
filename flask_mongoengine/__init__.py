@@ -42,7 +42,11 @@ class MongoEngine(object):
                 'port': int(app.config.get('MONGODB_PORT', 0)) or None
             }
 
-        conn_settings = dict([(k.lower(), v) for k, v in conn_settings.items() if v])
+        conn_settings = dict([
+            (key.lower(), val)
+            for key, val in conn_settings.items()
+            if val is not None
+        ])
 
         if 'replicaset' in conn_settings:
             conn_settings['replicaSet'] = conn_settings['replicaset']
