@@ -183,10 +183,6 @@ def _cursor_refresh(cursor_self):
         if hint:
             query_son["$hint"] = hint
 
-        snapshot = privar("snapshot")
-        if snapshot:
-            query_son["$snapshot"] = snapshot
-
         maxScan = privar("max_scan")
         if maxScan:
             query_son["$maxScan"] = maxScan
