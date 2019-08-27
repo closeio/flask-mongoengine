@@ -1,30 +1,22 @@
 # XXX importing this file has side effects. Namely, it overrides MongoEngine's
 # original QuerySet._collection property method.
 
-from flask import g, has_request_context
+import threading
+
 from mongoengine.queryset.queryset import QuerySet
 
 orig_collection_prop = QuerySet._collection.fget
 
-
-# In case we're not in a request context
-class local_cache(object):
-    read_preference = None
-cache = local_cache()
+read_preference = threading.local()
+read_preference.value = None
 
 
 def _get_read_preference():
-    if has_request_context():
-        return getattr(g, 'read_preference', None)
-    else:
-        return cache.read_preference
+    return read_preference.value
 
 
 def _set_read_preference(val):
-    if has_request_context():
-        g.read_preference = val
-    else:
-        cache.read_preference = val
+    read_preference.value = val
 
 
 def _patched_collection_prop(self):
@@ -34,6 +26,7 @@ def _patched_collection_prop(self):
         return collection
     else:
         return collection.with_options(read_preference=read_preference)
+
 
 QuerySet._collection = property(_patched_collection_prop)
 
