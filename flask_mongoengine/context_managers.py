@@ -8,11 +8,14 @@ from mongoengine.queryset.queryset import QuerySet
 orig_collection_prop = QuerySet._collection.fget
 
 _read_preference = threading.local()
-_read_preference.value = None
 
 
 def _get_read_preference():
-    return _read_preference.value
+    try:
+        return _read_preference.value
+    except AttributeError:
+        _read_preference.value = None
+        return None
 
 
 def _set_read_preference(val):
