@@ -7,16 +7,16 @@ from mongoengine.queryset.queryset import QuerySet
 
 orig_collection_prop = QuerySet._collection.fget
 
-read_preference = threading.local()
-read_preference.value = None
+_read_preference = threading.local()
+_read_preference.value = None
 
 
 def _get_read_preference():
-    return read_preference.value
+    return _read_preference.value
 
 
 def _set_read_preference(val):
-    read_preference.value = val
+    _read_preference.value = val
 
 
 def _patched_collection_prop(self):
