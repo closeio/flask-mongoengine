@@ -14,7 +14,7 @@ Changes in 0.5
 
 Changes in 0.4
 ==============
-- Added CSRF support and validate_on_save via flask.ext.WTF
+- Added CSRF support and validate_on_save via flask_WTF
 - Fixed DateTimeField not required
 
 Changes in 0.3

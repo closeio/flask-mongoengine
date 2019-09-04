@@ -4,8 +4,8 @@ import unittest
 import datetime
 import flask
 
-from flask.ext.mongoengine import MongoEngine
-from flask.ext.mongoengine.wtf import model_form
+from flask_mongoengine import MongoEngine
+from flask_mongoengine.wtf import model_form
 from werkzeug.datastructures import MultiDict
 
 from mongoengine import queryset_manager
