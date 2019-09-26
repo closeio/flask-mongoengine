@@ -4,6 +4,7 @@ Useful form fields for use with the mongoengine.
 from gettext import gettext as _
 import json
 
+from six import text_type
 from wtforms import widgets
 from wtforms.fields import SelectFieldBase, TextAreaField, Field
 from wtforms.validators import ValidationError
@@ -124,7 +125,7 @@ class JSONField(TextAreaField):
         if self.raw_data:
             return self.raw_data[0]
         else:
-            return self.data and unicode(json.dumps(self.data)) or u''
+            return self.data and text_type(json.dumps(self.data)) or u''
 
     def process_formdata(self, value):
         if value:
