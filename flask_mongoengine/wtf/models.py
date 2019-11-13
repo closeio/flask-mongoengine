@@ -1,3 +1,7 @@
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
 from flask_wtf import Form
 
 
@@ -11,7 +15,7 @@ class ModelForm(Form):
     def save(self, commit=True):
         if self.instance:
             update = {}
-            for name, field in self._fields.iteritems():
+            for name, field in self._fields.items():
                 try:
                     if getattr(self.instance, name) != field.data:
                         update['set__' + name] = field.data

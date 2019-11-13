@@ -1,3 +1,9 @@
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
+from builtins import str
+from builtins import range
 import functools
 import time
 import inspect
@@ -5,7 +11,7 @@ import copy
 import re
 import sys
 import os
-import SocketServer
+import socketserver
 
 import pymongo
 import pymongo.collection
@@ -285,14 +291,14 @@ def _tidy_stacktrace():
     """
     Tidy the stack_trace
     """
-    socketserver_path = os.path.realpath(os.path.dirname(SocketServer.__file__))
+    socketserver_path = os.path.realpath(os.path.dirname(socketserver.__file__))
     pymongo_path = os.path.realpath(os.path.dirname(pymongo.__file__))
     paths = ['/site-packages/', '/flaskext/', socketserver_path, pymongo_path]
     internal = False
 
     # Check html templates
     fnames = []
-    for i in xrange(100):
+    for i in range(100):
         try:
             fname = sys._getframe(i).f_code.co_filename
             if 'html' in fname:

@@ -1,12 +1,17 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
 
+from builtins import range
+from builtins import object
 import math
 
 import mongoengine
 
 from mongoengine.queryset import MultipleObjectsReturned, DoesNotExist, QuerySet
-from mongoengine.base import ValidationError
+from mongoengine.errors import ValidationError
 
 from flask import abort
 
@@ -201,7 +206,7 @@ class Pagination(object):
             {% endmacro %}
         """
         last = 0
-        for num in xrange(1, self.pages + 1):
+        for num in range(1, self.pages + 1):
             if num <= left_edge or \
                (num > self.page - left_current - 1 and
                 num < self.page + right_current) or \
