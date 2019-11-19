@@ -1,6 +1,11 @@
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
 # XXX importing this file has side effects. Namely, it overrides MongoEngine's
 # original QuerySet._collection property method.
 
+from builtins import object
 import threading
 
 from mongoengine.queryset.queryset import QuerySet

@@ -1,6 +1,12 @@
 """
 Tools for generating forms based on mongoengine Document schemas.
 """
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
+from builtins import map
+from builtins import object
 from operator import itemgetter
 from wtforms import fields as f, validators
 from mongoengine import ReferenceField
@@ -195,8 +201,8 @@ def model_fields(model, only=None, exclude=None, field_args=None, converter=None
     converter = converter or ModelConverter()
     field_args = field_args or {}
 
-    names = ((k, v.creation_counter) for k, v in model._fields.iteritems())
-    field_names = map(itemgetter(0), sorted(names, key=itemgetter(1)))
+    names = ((k, v.creation_counter) for k, v in model._fields.items())
+    field_names = list(map(itemgetter(0), sorted(names, key=itemgetter(1))))
 
     if only:
         field_names = (x for x in field_names if x in only)
