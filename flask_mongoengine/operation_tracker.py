@@ -15,6 +15,7 @@ import socketserver
 
 import pymongo
 import pymongo.collection
+import pymongo.command_cursor
 import pymongo.cursor
 import pymongo.helpers
 
@@ -32,7 +33,7 @@ _original_methods = {
     'update': pymongo.collection.Collection.update,
     'remove': pymongo.collection.Collection.remove,
     'refresh': pymongo.cursor.Cursor._refresh,
-    '_unpack_response': pymongo.helpers._unpack_response,
+    '_unpack_response': pymongo.command_cursor.CommandCursor._unpack_response,
 }
 
 def tracker_array(attr):
@@ -260,14 +261,16 @@ def install_tracker():
     pymongo.collection.Collection.update = _update
     pymongo.collection.Collection.remove = _remove
     pymongo.cursor.Cursor._refresh = _cursor_refresh
-    pymongo.helpers._unpack_response = _unpack_response
+    pymongo.command_cursor.CommandCursor._unpack_response = _unpack_response
 
 def uninstall_tracker():
     pymongo.collection.Collection.insert = _original_methods['insert']
     pymongo.collection.Collection.update = _original_methods['update']
     pymongo.collection.Collection.remove = _original_methods['remove']
     pymongo.cursor.Cursor._refresh = _original_methods['refresh']
-    pymongo.helpers._unpack_response = _original_methods['_unpack_response']
+    pymongo.command_cursor.CommandCursor._unpack_response = _original_methods[
+        '_unpack_response'
+    ]
 
 def reset():
     g.mongoengine_operation_tracker = {

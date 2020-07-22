@@ -34,6 +34,7 @@ setup(
     platforms='any',
     install_requires=[
         'Flask>=0.8',
+        'pymongo>=3.7',
         'mongoengine',
         'flask-wtf',
         'six>=1.12.0',
